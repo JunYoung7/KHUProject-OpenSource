@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 
 from __future__ import print_function
-
-import os
 import sys
+import os
 import time
 import json
 import requests
@@ -58,7 +57,6 @@ def ajax_request(session, url, params, data, retries=10, sleep=20):
 def download_comments(youtube_id, sleep=1):
     session = requests.Session()
     session.headers['User-Agent'] = USER_AGENT
-
     # Get Youtube page with initial comments
     response = session.get(YOUTUBE_COMMENTS_URL.format(youtube_id=youtube_id))
     html = response.text
@@ -68,10 +66,8 @@ def download_comments(youtube_id, sleep=1):
     for comment in extract_comments(html):
         ret_cids.append(comment['cid'])
         yield comment
-
     page_token = find_value(html, 'data-token')
     session_token = find_value(html, 'XSRF_TOKEN', 4)
-
     first_iteration = True
 
     # Get remaining comments (the same as pressing the 'Show more' button)
@@ -102,19 +98,16 @@ def download_comments(youtube_id, sleep=1):
 
         first_iteration = False
         time.sleep(sleep)
-
     # Get replies (the same as pressing the 'View all X replies' link)
     for cid in reply_cids:
         data = {'comment_id': cid,
                 'video_id': youtube_id,
                 'can_reply': 1,
                 'session_token': session_token}
-
         params = {'action_load_replies': 1,
                   'order_by_time': True,
                   'filter': youtube_id,
                   'tab': 'inbox'}
-
         response = ajax_request(session, YOUTUBE_COMMENTS_AJAX_URL, params, data)
         if not response:
             break
@@ -128,36 +121,71 @@ def download_comments(youtube_id, sleep=1):
         time.sleep(sleep)
 
 
-def main(argv):
-    parser = argparse.ArgumentParser(add_help=False, description=('Download Youtube comments without using the Youtube API'))
-    parser.add_argument('--help', '-h', action='help', default=argparse.SUPPRESS, help='Show this help message and exit')
-    parser.add_argument('--youtubeid', '-y', help='ID of Youtube video for which to download the comments')
-    parser.add_argument('--output', '-o', help='Output filename (output format is line delimited JSON)')
-    parser.add_argument('--limit', '-l', type=int, help='Limit the number of comments')
 
+def goto_Menu(result_List) :
+    for i in range (len(result_List)) :
+        a = str(result_List[i]['text'])
+        if('상무' in a) :
+            print((result_List)[i]['text'])
+        else :
+            print('Not Found')
+
+def main():
+
+    #parser = argparse.ArgumentParser(add_help=False, description=('Download Youtube comments without using the Youtube API'))
+    #parser.add_argument('--help', '-h', action='help', default=argparse.SUPPRESS, help='Show this help message and exit')
+    #parser.add_argument('--youtubeid', '-y', help='ID of Youtube video for which to download the comments')
+    #parser.add_argument('--output', '-o', help='Output filename (output format is line delimited JSON)')
+    #parser.add_argument('--limit', '-l', type=int, help='Limit the number of comments')
+    Youtube_id1 = input('Youtube_ID 입력 :')
+    Output1 = input('결과를 받을 파일 입력 :')
+    Limit1 = input('제한 갯수 입력 : ')
+    ##### argument로 받지 않고 input으로 받기 위한 것
     try:
-        args = parser.parse_args(argv)
+        # args = parser.parse_args(argv)
 
-        youtube_id = args.youtubeid
-        output = args.output
-        limit = args.limit
+        #youtube_id = args.youtubeid
+        #output = args.output
+        #limit = args.limit
+        result_List =[]
+        youtube_id = Youtube_id1
+        output = Output1
+    ## input 값을 받고 값에 할당
 
+        if Limit1 == '' :
+            Limit1 = 100
+        Limit1 = int(Limit1)
+        limit = Limit1
+    ## Limit에 빈 값이 들어갈 경우 Default 값으로 100을 넣게 하였음
         if not youtube_id or not output:
-            parser.print_usage()
-            raise ValueError('you need to specify a Youtube ID and an output filename')
+            #parser.print_usage()
+            #raise ValueError('you need to specify a Youtube ID and an output filename')
+            raise ValueError('올바른 입력 값을 입력하세요')
 
         print('Downloading Youtube comments for video:', youtube_id)
         count = 0
-        with io.open(output, 'w', encoding='utf8') as fp:
+        Number = input(' 저장 - 0 저장 안함-  1 : ')
+        if Number == '0' :
+            with io.open(output, 'w', encoding='utf8') as fp:
+                for comment in download_comments(youtube_id):
+                    print(comment_json.decode('utf-8') if isinstance(comment_json, bytes) else comment_json, file=fp)
+                    count += 1
+                    sys.stdout.write('Downloaded %d comment(s)\r' % count)
+                    sys.stdout.flush()
+                    if limit and count >= limit:
+                        break
+                        print('\nDone!')
+        else :
+            i = 0
             for comment in download_comments(youtube_id):
-                comment_json = json.dumps(comment, ensure_ascii=False)
-                print(comment_json.decode('utf-8') if isinstance(comment_json, bytes) else comment_json, file=fp)
+                result_List.append(comment)
                 count += 1
-                sys.stdout.write('Downloaded %d comment(s)\r' % count)
-                sys.stdout.flush()
+                i += 1
                 if limit and count >= limit:
                     break
-        print('\nDone!')
+                    print('\nDone!')
+        goto_Menu(result_List)
+
 
 
     except Exception as e:
@@ -166,4 +194,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main()
