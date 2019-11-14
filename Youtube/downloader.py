@@ -168,6 +168,7 @@ def main():
         if Number == '0' :
             with io.open(output, 'w', encoding='utf8') as fp:
                 for comment in download_comments(youtube_id):
+                    comment_json = json.dumps(comment, ensure_ascii=False)
                     print(comment_json.decode('utf-8') if isinstance(comment_json, bytes) else comment_json, file=fp)
                     count += 1
                     sys.stdout.write('Downloaded %d comment(s)\r' % count)
@@ -179,6 +180,7 @@ def main():
             i = 0
             for comment in download_comments(youtube_id):
                 result_List.append(comment)
+                print(result_List[i])
                 count += 1
                 i += 1
                 if limit and count >= limit:
