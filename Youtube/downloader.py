@@ -9,7 +9,7 @@ import requests
 import argparse
 import lxml.html
 import io
-
+from urllib.parse import urlparse, parse_qs
 from lxml.cssselect import CSSSelector
 
 YOUTUBE_COMMENTS_URL = 'https://www.youtube.com/all_comments?v={youtube_id}'
@@ -130,6 +130,23 @@ def goto_Menu(result_List) :
         else :
             print('Not Found')
 
+## input video 값 parsing
+def video_id(value):
+    query = urlparse(value)
+    if query.hostname == 'youtu.be':
+        return query.path[1:]
+    if query.hostname in ('www.youtube.com', 'youtube.com'):
+        if query.path == '/watch':
+            p = parse_qs(query.query)
+            return p['v'][0]
+        if query.path[:7] == '/embed/':
+            return query.path.split('/')[2]
+        if query.path[:3] == '/v/':
+            return query.path.split('/')[2]
+    # fail?
+    return None
+
+
 def main():
 
     #parser = argparse.ArgumentParser(add_help=False, description=('Download Youtube comments without using the Youtube API'))
@@ -138,6 +155,8 @@ def main():
     #parser.add_argument('--output', '-o', help='Output filename (output format is line delimited JSON)')
     #parser.add_argument('--limit', '-l', type=int, help='Limit the number of comments')
     Youtube_id1 = input('Youtube_ID 입력 :')
+    ## Cutting Link를 받고 id만 딸 수 있도록
+    Youtube_id1 = video_id(Youtube_id1)
     Output1 = input('결과를 받을 파일 입력 :')
     Limit1 = input('제한 갯수 입력 : ')
     ##### argument로 받지 않고 input으로 받기 위한 것
@@ -186,7 +205,8 @@ def main():
                 if limit and count >= limit:
                     break
                     print('\nDone!')
-        goto_Menu(result_List)
+        return result_List
+        #goto_Menu(result_List)
 
 
 
