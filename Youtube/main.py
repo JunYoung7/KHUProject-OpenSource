@@ -1,7 +1,5 @@
 import downloader
-from scraper import scrape_url
 from time import sleep
-from urllib.parse import urlparse
 
 def call_main ():
     print(' Comment Thread 생성중 \n')

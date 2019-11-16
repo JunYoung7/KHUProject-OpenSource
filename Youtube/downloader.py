@@ -157,26 +157,18 @@ def main():
     Youtube_id1 = input('Youtube_ID 입력 :')
     ## Cutting Link를 받고 id만 딸 수 있도록
     Youtube_id1 = video_id(Youtube_id1)
-    Output1 = input('결과를 받을 파일 입력 :')
-    Limit1 = input('제한 갯수 입력 : ')
-    ##### argument로 받지 않고 input으로 받기 위한 것
+    youtube_id = Youtube_id1
     try:
         # args = parser.parse_args(argv)
 
         #youtube_id = args.youtubeid
         #output = args.output
         #limit = args.limit
-        result_List =[]
-        youtube_id = Youtube_id1
-        output = Output1
+        result_List = []
     ## input 값을 받고 값에 할당
 
-        if Limit1 == '' :
-            Limit1 = 100
-        Limit1 = int(Limit1)
-        limit = Limit1
     ## Limit에 빈 값이 들어갈 경우 Default 값으로 100을 넣게 하였음
-        if not youtube_id or not output:
+        if not youtube_id :
             #parser.print_usage()
             #raise ValueError('you need to specify a Youtube ID and an output filename')
             raise ValueError('올바른 입력 값을 입력하세요')
@@ -185,21 +177,30 @@ def main():
         count = 0
         Number = input(' 저장 - 0 저장 안함-  1 : ')
         if Number == '0' :
+            Output1 = input('결과를 받을 파일 입력 :')
+            Limit1 = input('제한 갯수 입력 : ')
+            if Limit1 == '' :
+                Limit1 = 100
+                Limit1 = int(Limit1)
+            limit = int(Limit1)
+
+            output = Output1
+                ##### argument로 받지 않고 input으로 받기 위한 것
             with io.open(output, 'w', encoding='utf8') as fp:
                 for comment in download_comments(youtube_id):
                     comment_json = json.dumps(comment, ensure_ascii=False)
                     print(comment_json.decode('utf-8') if isinstance(comment_json, bytes) else comment_json, file=fp)
                     count += 1
-                    sys.stdout.write('Downloaded %d comment(s)\r' % count)
                     sys.stdout.flush()
                     if limit and count >= limit:
-                        break
+                        print('Downloaded {} comment(s)\r'.format(count))
                         print('\nDone!')
+                        break
+
         else :
             i = 0
             for comment in download_comments(youtube_id):
                 result_List.append(comment)
-                print(result_List[i])
                 count += 1
                 i += 1
                 if limit and count >= limit:
