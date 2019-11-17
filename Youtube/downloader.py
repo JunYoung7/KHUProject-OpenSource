@@ -120,16 +120,6 @@ def download_comments(youtube_id, sleep=1):
                 yield comment
         time.sleep(sleep)
 
-
-
-def goto_Menu(result_List) :
-    for i in range (len(result_List)) :
-        a = str(result_List[i]['text'])
-        if('상무' in a) :
-            print((result_List)[i]['text'])
-        else :
-            print('Not Found')
-
 ## input video 값 parsing
 def video_id(value):
     query = urlparse(value)
@@ -174,7 +164,6 @@ def main():
             raise ValueError('올바른 입력 값을 입력하세요')
 
         print('Downloading Youtube comments for video:', youtube_id)
-        count = 0
         Number = input(' 저장 - 0 저장 안함-  1 : ')
         if Number == '0' :
             Output1 = input('결과를 받을 파일 입력 :')
@@ -198,14 +187,22 @@ def main():
                         break
 
         else :
+            count = 0
             i = 0
+            limit = 40
             for comment in download_comments(youtube_id):
-                result_List.append(comment)
+                dic = {}
+                dic['cid'] = comment['cid']
+                dic['text'] = comment['text']
+                dic['time'] = comment['time']
+                dic['author'] = comment['author']
+                result_List.append(dic)
                 count += 1
                 i += 1
-                if limit and count >= limit:
+                if limit  == count :
+                    print(' Comment Thread 생성 완료')
+                    print ('\n\n\n\n\n\n\n')
                     break
-                    print('\nDone!')
         return result_List
         #goto_Menu(result_List)
 
