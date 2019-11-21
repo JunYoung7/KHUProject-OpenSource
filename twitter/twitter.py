@@ -22,11 +22,15 @@ def get_tweets(criteria):
      
         # 결과 합치기
         info_list = {'username' : username, 'text': content, 'time': tweet_date, 'link': link}
-        tweet_list.append(info_list)
-        print(tweet_list)
+        tweet_list.append(info_list) 
         # 휴식 
         time.sleep(uniform(1,2))
-
+    print("====================================")
+    if(len(tweet_list) == 0):
+        print("조건에 맞는 tweet이 없습니다.")
+    else:
+        print(tweet_list)
+    print("====================================")
 days_range = []
 
 start = datetime.datetime.strptime("2019-11-17", "%Y-%m-%d")
@@ -57,12 +61,31 @@ while(True):
     
     if userNum == 1:
         nick = input("검색할 닉네임을 입력해주세요: ")
-        tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
+        print("1. 최근 10개만 보기")
+        print("2. 해당 닉네임의 트윗 전부 다 보기")
+        print("3. 현재 검색어를 적용시켜 보기")
+        tweetNum = int(input("무엇을 하시겠습니까?: "))
+        if(tweetNum == 1):
+            tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
+                                           .setSince(start_date)\
+                                           .setUntil(end_date)\
+                                           .setMaxTweets(10)
+            get_tweets(tweetCriteria)
+        elif(tweetNum == 2):
+            tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
+                                           .setSince(start_date)\
+                                           .setUntil(end_date)\
+                                           .setMaxTweets(-1)
+            get_tweets(tweetCriteria)
+        elif(tweetNum == 3):
+            tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
                                            .setQuerySearch(my_key)\
                                            .setSince(start_date)\
                                            .setUntil(end_date)\
                                            .setMaxTweets(-1)
-        get_tweets(tweetCriteria)
+            get_tweets(tweetCriteria)
+        else:
+            print("잘못된 보기를 선택하셨습니다.")
     elif userNum == 2:
         my_key = input("검색할 키워드를 입력해주세요: ")
         tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
@@ -93,13 +116,56 @@ while(True):
             end_month = user_end // 100 - end_year * 100
             end_day = user_end - end_year * 10000 - end_month * 100
             d1 = str(start_year) + "-" + str(start_month) + "-" + str(start_day)
+            # d2는 보여주기용, d3는 실제 코드에 넣기용(코드에 넣을때는 +1을 해줘야 한다.)
             d2 = str(end_year) + "-" + str(end_month) + "-" + str(end_day)
+            d3 = str(end_year) + "-" + str(end_month) + "-" + str(end_day + 1)
+            print("1. 현재 검색어를 적용시켜 검색")
+            print("2. 다른 검색어를 적용시켜 검색")
+            myNum = int(input("무엇을 선택하시겠습니까?: "))
+            if(myNum == 1):
+                print("1. 닉네임을 적용시켜 검색")
+                print("2. 닉네임 상관없이 전부 검색")
+                myNum1 = int(input("무엇을 선택하시겠습니까?: "))
+                if(myNum1 == 1):
+                    nick2 = input("검색할 닉네임을 입력해주세요: ")
+                    tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
+                                           .setQuerySearch(my_key)\
+                                           .setSince(d1)\
+                                           .setUntil(d3)\
+                                           .setMaxTweets(-1)
+                elif(myNum1 == 2):
+                    tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
+                                           .setSince(d1)\
+                                           .setUntil(d3)\
+                                           .setMaxTweets(-1)
+                else:
+                    print("잘못된 입력입니다.")
+                    continue
+            elif(myNum == 2):
+                my_key = input("검색할 키워드를 입력해주세요: ")
+                print("1. 닉네임을 적용시켜 검색")
+                print("2. 닉네임 상관없이 전부 검색")
+                myNum2 = int(input("무엇을 선택하시겠습니까?: "))
+                if(myNum2 == 1):
+                    nick2 = input("검색할 닉네임을 입력해주세요: ")
+                    tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
+                                           .setQuerySearch(my_key)\
+                                           .setSince(d1)\
+                                           .setUntil(d3)\
+                                           .setMaxTweets(-1)
+                elif(myNum2 == 2):
+                    tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
+                                           .setSince(d1)\
+                                           .setUntil(d3)\
+                                           .setMaxTweets(-1)
+                else:
+                    print("잘못된 입력입니다.")
+                    continue
+            else:
+                print("잘못된 입력입니다.")
+                continue
             print("=== 현재 설정된 트윗 수집 기간은 {} 에서 {} 까지 입니다 ===".format(d1, d2))
             print("=== 총 {}일 간의 데이터 수집 ===".format(user_end - user_start))
-            tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
-                                           .setSince(d1)\
-                                           .setUntil(d2)\
-                                           .setMaxTweets(-1)
             get_tweets(tweetCriteria)
     elif userNum == 4:
         break
