@@ -8,3 +8,4 @@ pytagcloud
 ### wordcloud 생성
 Jpye1
 ### 키워드 분석
+python -m pip install -U matplotlib==3.2.0rc1

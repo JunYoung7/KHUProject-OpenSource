@@ -2,6 +2,9 @@ import downloader
 from time import sleep
 from konlpy.tag import Twitter
 from collections import Counter
+from matplotlib import rc
+import matplotlib.pyplot as plt
+from matplotlib import font_manager as fm
 import pytagcloud
 import operator
 def get_tags (Comment_List) :
@@ -110,9 +113,53 @@ def make_time_chart (Comment_List) :
     day_data = sorted(day_dict.items(), key=operator.itemgetter(0))
     hour_data = sorted(hour_dict.items(), key=operator.itemgetter(0))
     minute_data = sorted(minute_dict.items(), key=operator.itemgetter(0))
-    print(month_data)
-    print(week_data)
-    print(day_data)
+    #print(month_data)
+    #print(week_data)
+    #print(day_data)
+    make_chart(year_data,month_data,week_data,day_data,hour_data,minute_data)
+
+def make_chart(year_data,month_data,week_data,day_data,hour_data,minute_data) :
+    temp_list =  [year_data,month_data,week_data,day_data,hour_data,minute_data]
+    x_list = []
+    y_list = []
+    print(temp_list)
+    for var1 in temp_list :
+        for var2 in var1 :
+            if(var2[0].find('년')>=0):
+                temp1 = var2[0][0] + 'years'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+            elif(var2[0].find('개월')>=0):
+                temp1 = var2[0][0] + 'months'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+            elif(var2[0].find('주')>=0):
+                temp1 = var2[0][0] + 'weeks'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+            elif(var2[0].find('일')>=0):
+                temp1 = var2[0][0] + 'days'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+            elif(var2[0].find('시간')>=0):
+                temp1 = var2[0][0] + 'hours'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+            else:
+                temp1 = var2[0][0] + 'minutes'
+                temp2 = int(var2[1])
+                x_list.append(temp1)
+                y_list.append(temp2)
+    print(x_list)
+    plt.bar(x_list,y_list,width = 0.5 , color = "blue")
+    # plt.show() -> 출력
+    plt.savefig('chart.png',dpi=300)
+    # plt.savefig('chart.png', dpi=300)
 
 def call_main ():
     print(' Comment Thread 생성중 \n')
