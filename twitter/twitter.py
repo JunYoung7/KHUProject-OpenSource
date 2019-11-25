@@ -33,8 +33,8 @@ def get_tweets(criteria):
     print("====================================")
 days_range = []
 
-start = datetime.datetime.strptime("2019-11-17", "%Y-%m-%d")
-end = datetime.datetime.strptime("2019-11-18", "%Y-%m-%d")
+start = datetime.datetime.strptime("2019-11-25", "%Y-%m-%d")
+end = datetime.datetime.strptime("2019-11-26", "%Y-%m-%d")
 date_generated = [start + datetime.timedelta(days=x) for x in range(0, (end-start).days)]
 
 for date in date_generated:
@@ -53,6 +53,7 @@ while(True):
     temp1 = "현재 검색어는 " + my_key + "입니다. "
     print(temp1)
     print("기간은 기본적으로 최근 1일입니다.")
+    print("빠른 검색을 지원하기 위해 최대 50건까지만 표시됩니다.")
     print("1. 닉네임을 통한 검색")
     print("2. 키워드를 통한 검색")
     print("3. 시간을 통한 검색")
@@ -62,7 +63,7 @@ while(True):
     if userNum == 1:
         nick = input("검색할 닉네임을 입력해주세요: ")
         print("1. 최근 10개만 보기")
-        print("2. 해당 닉네임의 트윗 전부 다 보기")
+        print("2. 해당 닉네임의 트윗 50건 보기")
         print("3. 현재 검색어를 적용시켜 보기")
         tweetNum = int(input("무엇을 하시겠습니까?: "))
         if(tweetNum == 1):
@@ -75,14 +76,14 @@ while(True):
             tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
                                            .setSince(start_date)\
                                            .setUntil(end_date)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
             get_tweets(tweetCriteria)
         elif(tweetNum == 3):
             tweetCriteria = got.manager.TweetCriteria().setUsername(nick)\
                                            .setQuerySearch(my_key)\
                                            .setSince(start_date)\
                                            .setUntil(end_date)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
             get_tweets(tweetCriteria)
         else:
             print("잘못된 보기를 선택하셨습니다.")
@@ -91,7 +92,7 @@ while(True):
         tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
                                            .setSince(start_date)\
                                            .setUntil(end_date)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
         get_tweets(tweetCriteria)
     elif userNum == 3:
         user_start = int(input("시작일을 입력해주세요(yyyymmdd형태): "))
@@ -132,12 +133,12 @@ while(True):
                                            .setQuerySearch(my_key)\
                                            .setSince(d1)\
                                            .setUntil(d3)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
                 elif(myNum1 == 2):
                     tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
                                            .setSince(d1)\
                                            .setUntil(d3)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
                 else:
                     print("잘못된 입력입니다.")
                     continue
@@ -152,12 +153,12 @@ while(True):
                                            .setQuerySearch(my_key)\
                                            .setSince(d1)\
                                            .setUntil(d3)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
                 elif(myNum2 == 2):
                     tweetCriteria = got.manager.TweetCriteria().setQuerySearch(my_key)\
                                            .setSince(d1)\
                                            .setUntil(d3)\
-                                           .setMaxTweets(-1)
+                                           .setMaxTweets(50)
                 else:
                     print("잘못된 입력입니다.")
                     continue
