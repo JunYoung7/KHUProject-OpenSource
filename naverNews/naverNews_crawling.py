@@ -1,204 +1,227 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 3,
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "******************************\n",
-      "\n",
-      "\n",
-      "***< Naver News Crawling >****\n",
-      "\n",
-      "\n",
-      "******************************\n",
-      "검색하고자 하는 url을 입력해주세요: \n",
-      "comment_list를 가져오는 중.....\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "C:\\Users\\user\\Anaconda3\\lib\\site-packages\\ipykernel_launcher.py:14: DeprecationWarning: use options instead of chrome_options\n",
-      "  \n"
-     ]
-    },
-    {
-     "ename": "InvalidArgumentException",
-     "evalue": "Message: invalid argument\n  (Session info: chrome=78.0.3904.108)\n",
-     "output_type": "error",
-     "traceback": [
-      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
-      "\u001b[1;31mInvalidArgumentException\u001b[0m                  Traceback (most recent call last)",
-      "\u001b[1;32m<ipython-input-3-aa9195667f4b>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m    113\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    114\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 115\u001b[1;33m \u001b[0mmain\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m",
-      "\u001b[1;32m<ipython-input-3-aa9195667f4b>\u001b[0m in \u001b[0;36mmain\u001b[1;34m()\u001b[0m\n\u001b[0;32m     97\u001b[0m     \u001b[0m_url\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0minput\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'검색하고자 하는 url을 입력해주세요: '\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     98\u001b[0m     \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'comment_list를 가져오는 중.....'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 99\u001b[1;33m     \u001b[0mcList\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mgetData\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0m_url\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    100\u001b[0m     \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'\\n'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    101\u001b[0m     \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'comment_list를 다 가져왔습니다!'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
-      "\u001b[1;32m<ipython-input-3-aa9195667f4b>\u001b[0m in \u001b[0;36mgetData\u001b[1;34m(url)\u001b[0m\n\u001b[0;32m     14\u001b[0m     \u001b[0mdriver\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mwebdriver\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mChrome\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mwebDriver\u001b[0m\u001b[1;33m,\u001b[0m\u001b[0mchrome_options\u001b[0m\u001b[1;33m=\u001b[0m\u001b[0moptions\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     15\u001b[0m     \u001b[1;31m#driver = webdriver.Chrome(webDriver)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m---> 16\u001b[1;33m     \u001b[0mdriver\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0m_url\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m     17\u001b[0m     \u001b[0mpageCnt\u001b[0m \u001b[1;33m=\u001b[0m \u001b[1;36m0\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     18\u001b[0m     \u001b[0mdriver\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mimplicitly_wait\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;36m3\u001b[0m\u001b[1;33m)\u001b[0m \u001b[1;31m# 페이지가 다 로드 될때까지 기다리게함\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
-      "\u001b[1;32m~\\Anaconda3\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\u001b[0m in \u001b[0;36mget\u001b[1;34m(self, url)\u001b[0m\n\u001b[0;32m    331\u001b[0m         \u001b[0mLoads\u001b[0m \u001b[0ma\u001b[0m \u001b[0mweb\u001b[0m \u001b[0mpage\u001b[0m \u001b[1;32min\u001b[0m \u001b[0mthe\u001b[0m \u001b[0mcurrent\u001b[0m \u001b[0mbrowser\u001b[0m \u001b[0msession\u001b[0m\u001b[1;33m.\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    332\u001b[0m         \"\"\"\n\u001b[1;32m--> 333\u001b[1;33m         \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mexecute\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mCommand\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mGET\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m{\u001b[0m\u001b[1;34m'url'\u001b[0m\u001b[1;33m:\u001b[0m \u001b[0murl\u001b[0m\u001b[1;33m}\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    334\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    335\u001b[0m     \u001b[1;33m@\u001b[0m\u001b[0mproperty\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
-      "\u001b[1;32m~\\Anaconda3\\lib\\site-packages\\selenium\\webdriver\\remote\\webdriver.py\u001b[0m in \u001b[0;36mexecute\u001b[1;34m(self, driver_command, params)\u001b[0m\n\u001b[0;32m    319\u001b[0m         \u001b[0mresponse\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mcommand_executor\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mexecute\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mdriver_command\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mparams\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    320\u001b[0m         \u001b[1;32mif\u001b[0m \u001b[0mresponse\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 321\u001b[1;33m             \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0merror_handler\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mcheck_response\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mresponse\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    322\u001b[0m             response['value'] = self._unwrap_value(\n\u001b[0;32m    323\u001b[0m                 response.get('value', None))\n",
-      "\u001b[1;32m~\\Anaconda3\\lib\\site-packages\\selenium\\webdriver\\remote\\errorhandler.py\u001b[0m in \u001b[0;36mcheck_response\u001b[1;34m(self, response)\u001b[0m\n\u001b[0;32m    240\u001b[0m                 \u001b[0malert_text\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mvalue\u001b[0m\u001b[1;33m[\u001b[0m\u001b[1;34m'alert'\u001b[0m\u001b[1;33m]\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mget\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'text'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    241\u001b[0m             \u001b[1;32mraise\u001b[0m \u001b[0mexception_class\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mmessage\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mscreen\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mstacktrace\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0malert_text\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m--> 242\u001b[1;33m         \u001b[1;32mraise\u001b[0m \u001b[0mexception_class\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mmessage\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mscreen\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mstacktrace\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m    243\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m    244\u001b[0m     \u001b[1;32mdef\u001b[0m \u001b[0m_value_or_default\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mobj\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mkey\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mdefault\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
-      "\u001b[1;31mInvalidArgumentException\u001b[0m: Message: invalid argument\n  (Session info: chrome=78.0.3904.108)\n"
-     ]
-    }
-   ],
-   "source": [
-    "from selenium import webdriver\n",
-    "from selenium.common import exceptions\n",
-    "from bs4 import BeautifulSoup\n",
-    "import time\n",
-    "\n",
-    "def getData(url):\n",
-    "    ## chrome option걸기 (headless하게 웹 크롤링 수행하기 위해<웹페이지 안보이게 하기>)\n",
-    "    options = webdriver.ChromeOptions()\n",
-    "    #options.add_argument('headless')\n",
-    "    #options.add_argument(\"disable-gpu\")\n",
-    "    #_url = \"https://entertain.naver.com/ranking/comment/list?oid=144&aid=0000642175\" # 크롤링할 URL\n",
-    "    _url = url # 크롤링할 URL\n",
-    "    webDriver = \"C:\\\\Users\\\\user\\\\Desktop\\\\chromedriver_win32\\\\chromedriver.exe\"  # 내 웹드라이버 위치\n",
-    "    driver = webdriver.Chrome(webDriver,chrome_options=options)\n",
-    "    #driver = webdriver.Chrome(webDriver)\n",
-    "    driver.get(_url)\n",
-    "    pageCnt = 0\n",
-    "    driver.implicitly_wait(3) # 페이지가 다 로드 될때까지 기다리게함\n",
-    "    try:\n",
-    "        while True: # 댓글 페이지 끝날때까지 돌림\n",
-    "            #driver의 find_element_by_css_selector함수로 '네이버 뉴스'의 댓글 '더보기' 버튼을 찾아서 계속 클릭해준다(끝까지)\n",
-    "            driver.find_element_by_css_selector(\".u_cbox_btn_more\").click() \n",
-    "            pageCnt = pageCnt+1\n",
-    "        \n",
-    "    except exceptions.ElementNotVisibleException as e: # 페이지가 끝남\n",
-    "        pass\n",
-    "        \n",
-    "    except Exception as e: # 다른 예외 발생시 확인\n",
-    "        print(e)\n",
-    "    \n",
-    "    pageSource = driver.page_source # 페이지 소스를 따와서\n",
-    "    result = BeautifulSoup(pageSource, \"lxml\") # 빠르게 뽑아오기 위해 lxml 사용\n",
-    "\n",
-    "    # nickname, text, time을 raw하게 뽑아온다\n",
-    "    comments_raw = result.find_all(\"span\", {\"class\" : \"u_cbox_contents\"})\n",
-    "    nicknames_raw = result.find_all(\"span\", {\"class\" : \"u_cbox_nick\"})\n",
-    "    times_raw = result.find_all(\"span\", {\"class\" : \"u_cbox_date\"})\n",
-    "\n",
-    "    # nickname, text, time 값 만을 뽑아내어 리스트로 정리한다\n",
-    "    comments = [comment.text for comment in comments_raw]\n",
-    "    nicknames = [nickname.text for nickname in nicknames_raw]\n",
-    "    times = [time.text for time in times_raw]\n",
-    "    \n",
-    "    naverNewsList = []\n",
-    "    \n",
-    "    for i in range(len(comments)):\n",
-    "        info_dic = {'userID' : nicknames[i], 'comment' : comments[i], 'time' : times[i]}\n",
-    "        naverNewsList.append(info_dic)\n",
-    "        \n",
-    "    return naverNewsList\n",
-    "    #driver.quit()\n",
-    "    \n",
-    "from time import sleep\n",
-    "\n",
-    "def print_cList(c_List) :\n",
-    "    for item in c_List :\n",
-    "        print(item)\n",
-    "\n",
-    "def search_by_author(c_List,user_ID) :\n",
-    "        result_List = []\n",
-    "        for item in c_List :\n",
-    "            print(item['userID'])\n",
-    "            if ( user_ID in item['userID']) :\n",
-    "                result_List.append(item)\n",
-    "        return result_List\n",
-    "\n",
-    "def search_by_keyword(c_List,keyword) :\n",
-    "        result_List = []\n",
-    "        for item in c_List :\n",
-    "            print(item['comment'])\n",
-    "            if ( keyword in item['comment']) :\n",
-    "                result_List.append(item)\n",
-    "        return result_List\n",
-    "    \n",
-    "\n",
-    "def search_by_time(c_List,_time) :\n",
-    "        result_List = []\n",
-    "        for item in c_List :\n",
-    "            print(item['time'])\n",
-    "            if ( keyword in item['comment']) :\n",
-    "                result_List.append(item)\n",
-    "        return result_List\n",
-    "                \n",
-    "def main ():\n",
-    "    ## 시작화면\n",
-    "    \n",
-    "    _star = '*'\n",
-    "    print(_star.center(30,'*'))\n",
-    "    print('\\n')\n",
-    "    headString = '< Naver News Crawling >'\n",
-    "    print(headString.center(30,'*'))\n",
-    "    print('\\n')\n",
-    "    print(_star.center(30,'*'))\n",
-    "    \n",
-    "    \n",
-    "    # 검색하고자 하는 url을 입력받는다\n",
-    "    _url = input('검색하고자 하는 url을 입력해주세요: ')\n",
-    "    print('comment_list를 가져오는 중.....')\n",
-    "    cList = getData(_url)\n",
-    "    print('\\n')\n",
-    "    print('comment_list를 다 가져왔습니다!')\n",
-    "    \n",
-    "    while(True):\n",
-    "        print('***********************************')\n",
-    "        print('1.닉네임 기반 검색')\n",
-    "        print('2.키워드 기반 검색')\n",
-    "        print('3.작성시간 기반 검색')\n",
-    "        menu = input('메뉴를 입력해주세요: ')\n",
-    "        \n",
-    "        if(menu == 1):\n",
-    "            print('***********************************')\n",
-    "            inputID = input('검색할 닉네임 앞 4자리를 입력해주세요: ')\n",
-    "            search_by_author(cList,inputID)\n",
-    "        elif(menu == 2):\n",
-    "            print('***********************************')\n",
-    "            inputKW = input('검색할 키워드를 입력해주세요: ')\n",
-    "            search_by_keyword(cList,inputKW)\n",
-    "        else:\n",
-    "            print('***********************************')\n",
-    "            inputTime = input('검색할 시간대를 입력해주세요: ')\n",
-    "            search_by_time(cList,inputTime)\n",
-    "\n",
-    "    \n",
-    "main()"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "metadata": {},
-   "outputs": [],
-   "source": []
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.7.3"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 2
-}
+from selenium import webdriver
+from selenium.common import exceptions
+from bs4 import BeautifulSoup
+from datetime import datetime, timedelta
+import time
+
+
+def getData(url):
+    ## chrome option걸기 (headless하게 웹 크롤링 수행하기 위해<웹페이지 안보이게 하기>)
+    options = webdriver.ChromeOptions()
+    #options.add_argument('headless')
+    #options.add_argument("disable-gpu")
+    #_url = "https://entertain.naver.com/ranking/comment/list?oid=144&aid=0000642175" # 크롤링할 URL
+    _url = url # 크롤링할 URL
+    webDriver = "C:\\Users\\user\\Desktop\\chromedriver_win32\\chromedriver.exe"  # 내 웹드라이버 위치
+    driver = webdriver.Chrome(webDriver,chrome_options=options)
+    #driver = webdriver.Chrome(webDriver)
+    driver.get(_url)
+    pageCnt = 0
+    driver.implicitly_wait(3) # 페이지가 다 로드 될때까지 기다리게함
+    try:
+        while True: # 댓글 페이지 끝날때까지 돌림
+            #driver의 find_element_by_css_selector함수로 '네이버 뉴스'의 댓글 '더보기' 버튼을 찾아서 계속 클릭해준다(끝까지)
+            driver.find_element_by_css_selector(".u_cbox_btn_more").click() 
+            pageCnt = pageCnt+1
+        
+    except exceptions.ElementNotVisibleException as e: # 페이지가 끝남
+        pass
+        
+    except Exception as e: # 다른 예외 발생시 확인
+        print(e)
+    
+    pageSource = driver.page_source # 페이지 소스를 따와서
+    result = BeautifulSoup(pageSource, "lxml") # 빠르게 뽑아오기 위해 lxml 사용
+
+    # nickname, text, time을 raw하게 뽑아온다
+    comments_raw = result.find_all("span", {"class" : "u_cbox_contents"})
+    nicknames_raw = result.find_all("span", {"class" : "u_cbox_nick"})
+    times_raw = result.find_all("span", {"class" : "u_cbox_date"})
+
+    # nickname, text, time 값 만을 뽑아내어 리스트로 정리한다
+    comments = [comment.text for comment in comments_raw]
+    nicknames = [nickname.text for nickname in nicknames_raw]
+    times = [time.text for time in times_raw]
+    
+    naverNewsList = []
+    
+    for i in range(len(comments)):
+        info_dic = {'userID' : nicknames[i], 'comment' : comments[i], 'time' : times[i]}
+        naverNewsList.append(info_dic)
+        
+    return naverNewsList
+    #driver.quit()
+    
+from time import sleep
+
+def print_cList(c_List) :
+    for item in c_List :
+        print(item)
+
+def search_by_author(c_List,user_ID) :
+        result_List = []
+        for item in c_List :
+           #print(item['userID'])
+            if ( user_ID in item['userID']) :
+                result_List.append(item)
+        return result_List
+
+def search_by_keyword(c_List,keyword) :
+        result_List = []
+        for item in c_List :
+            #print(item['comment'])
+            if ( keyword in item['comment']) :
+                result_List.append(item)
+        return result_List
+
+def refine_time(c_List): # 시간에서 몇일 전, 몇 분 전, 방금 전 등의 형태를 YYYY.MM.DD로 바꿔준다
+    now = datetime.now()
+    
+    for item in c_List:
+        if (item['time'].find('전') != -1): # ~~전이 있으면
+            if (item['time'].find('일 전') != -1): # ~일 전이라면
+                _day = -(int)(item['time'][0]) # 몇 일전인지에 대한 정수형 변수
+                tempTime = now + timedelta(days=_day)
+                item['time'] = str(tempTime)
+                item['time'] = item['time'][0:10]
+                continue
+            elif (item['time'].find('시간 전') != -1):
+                _index = item['time'].index('시')
+                _time = -(int)(item['time'][0:_index]) # 몇 시간 전인지에 대한 정수형 변수
+                tempTime = now + timedelta(hours = _time)
+                item['time'] = str(tempTime)
+                item['time'] = item['time'][0:10]
+                continue
+            elif (item['time'].find('분 전') != -1):
+                _index = item['time'].index('분')
+                _minute = -(int)(item['time'][0:_index]) # 몇 분 전인지에 대한 정수형 변수
+                tempTime = now + timedelta(minutes = _minute)
+                item['time'] = str(tempTime)
+                item['time'] = item['time'][0:10]
+                continue
+            elif (item['time'].find('방금 전') != -1):
+                tempTime = now
+                item['time'] = str(tempTime)
+                item['time'] = item['time'][0:10]
+                continue
+            else:
+                item['time'] = item['time'][0:10]
+                continue
+        
+        
+                
+            
+
+def search_by_time(c_List,startTime, endTime) : 
+    result_List = []
+    
+    startYear = int(startTime[0:4])
+    
+    if (int(startTime[5]) == 0): # 한자리의 월일 때
+        startMonth = int(startTime[6])
+    else:
+        startMonth = int(startTime[5:7])
+        
+    if (int(startTime[8]) == 0): # 한자리의 일일 때
+        startDay = int(startTime[9])
+    else:
+        startDay = int(startTime[8:10])
+    
+    
+    
+    endYear = int(endTime[0:4])
+    
+    if (int(endTime[5]) == 0): # 한자리의 월일 때
+        endMonth = int(endTime[6])
+    else:
+        endMonth = int(endTime[5:7])
+        
+    if (int(endTime[8]) == 0): # 한자리의 일일 때
+        endDay = int(endTime[9])
+    else:
+        endDay = int(endTime[8:10])
+    
+    for item in c_List:
+        itemYear = int(item['time'][0:4])
+        
+        if (int(item['time'][5]) == 0): # 한자리의 월일 때
+            itemMonth = int(item['time'][6])
+        else:
+            itemMonth = int(item['time'][5:7])
+        
+        if (int(item['time'][8]) == 0): # 한자리의 일일 때
+            itemDay = int(item['time'][9])
+        else:
+            itemDay = int(item['time'][8:10])
+        
+        if (itemYear >= startYear and itemYear <= endYear):
+            if (itemMonth >= startMonth and itemMonth <= endMonth):
+                if(itemDay >= startDay and itemDay <= endDay):
+                    result_List.append(item)
+    
+    return result_List
+            
+def printResult(c_List):
+    for i in range(0,len(c_List)):
+        print(c_List[i])
+
+def main ():
+    ## 시작화면
+    
+    _star = '*'
+    print(_star.center(30,'*'))
+    print('\n')
+    headString = '< Naver News Crawling >'
+    print(headString.center(30,'*'))
+    print('\n')
+    print(_star.center(30,'*'))
+    
+    
+    # 검색하고자 하는 url을 입력받는다
+    _url = input('검색하고자 하는 url을 입력해주세요: ')
+    print('comment_list를 가져오는 중.....')
+    cList = getData(_url)
+    refine_time(cList)
+    print('\n')
+    print('comment_list를 다 가져왔습니다!')
+    
+    while(True):
+        print('***********************************')
+        print('1.닉네임 기반 검색')
+        print('2.키워드 기반 검색')
+        print('3.작성시간 기반 검색')
+        menu = input('메뉴를 입력해주세요: ')
+        
+        if(menu == str(1)):
+            print('***********************************')
+            inputID = input('검색할 닉네임 앞 4자리를 입력해주세요(전 단계로 가시려면 -1을 입력해주세요): ')
+            if(inputID == str(-1)):
+                continue
+            _result = search_by_author(cList,inputID)
+            printResult(_result)
+            print(_result)
+        elif(menu == str(2)):
+            print('***********************************')
+            inputKW = input('검색할 키워드를 입력해주세요(전 단계로 가시려면 -1을 입력해주세요): ')
+            if(inputKW == str(-1)):
+                continue
+            _result = search_by_keyword(cList,inputKW)
+            printResult(_result)
+        elif(menu == str(3)):
+            print('***********************************')
+            print('전 단계로 돌아가시려면 -1을 입력해주세요')
+            startTime = input('검색할 시간대의 시작일을 입력해주세요(YYYY-MM-DD): ')
+            endTime = input('검색할 시간대의 마지막 일을 입력해주세요(YYYY-MM-DD): ')
+            
+            if(startTime == str(-1) or endTime == str(-1)):
+                continue
+                
+            _result = search_by_time(cList,startTime,endTime)
+            printResult(_result)
+        else:
+            print('잘못된 입력입니다')
+            continue
+            
+
+    
+main()
