@@ -2,6 +2,8 @@ from selenium import webdriver
 from selenium.common import exceptions
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
+from konlpy.tag import Twitter
+from collections import Counter
 import time
 
 
@@ -160,7 +162,27 @@ def search_by_time(c_List,startTime, endTime) :
                     result_List.append(item)
     
     return result_List
-            
+
+def printMostShowed(c_List,limit):
+    temp = ""
+    result = ""
+    for item in c_List:
+        temp = str(item['comment']) + " "
+        result = result + temp
+    
+    sp = Twitter()
+    
+    nouns = sp.nouns(result)
+    
+    _cnt = Counter(nouns)
+    
+    tempList = []
+    repCnt = 0
+    
+    for i,j in _cnt.most_common(limit):
+        print(str(repCnt+1)+'. '+str(i)+" : "+str(j))
+        repCnt += 1
+        
 def printResult(c_List):
     for i in range(0,len(c_List)):
         print(c_List[i])
@@ -182,6 +204,7 @@ def main ():
     print('comment_list를 가져오는 중.....')
     cList = getData(_url)
     refine_time(cList)
+    #printMostShowed(cList,10)
     print('\n')
     print('comment_list를 다 가져왔습니다!')
     
@@ -190,6 +213,7 @@ def main ():
         print('1.닉네임 기반 검색')
         print('2.키워드 기반 검색')
         print('3.작성시간 기반 검색')
+        print('4.자주 나타난 단어 출력')
         menu = input('메뉴를 입력해주세요: ')
         
         if(menu == str(1)):
@@ -218,6 +242,16 @@ def main ():
                 
             _result = search_by_time(cList,startTime,endTime)
             printResult(_result)
+        elif(menu == str(4)):
+            print('***********************************')
+            inputLimit = input('상위 몇 개 까지 보고 싶은지 입력하세요(1~20): ')
+            while(True):
+                if (int(inputLimit) <= 0 or int(inputLimit) > 20):
+                    inputLimit = input('상위 몇 개 까지 보고 싶은지 입력하세요(1~20): ')
+                else:
+                    break
+                
+            printMostShowed(cList,int(inputLimit))
         else:
             print('잘못된 입력입니다')
             continue
