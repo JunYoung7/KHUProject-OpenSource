@@ -1,0 +1,11 @@
+requests
+beautifulsoup4
+lxml
+cssselect
+### 农费傅
+pygame
+pytagcloud
+### wordcloud 积己
+Jpye1
+### 虐况靛 盒籍
+python -m pip install -U matplotlib==3.2.0rc1
